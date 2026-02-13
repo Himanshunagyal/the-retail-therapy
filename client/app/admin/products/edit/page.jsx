@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getProductById, updateProduct } from '../../../../../lib/api';
-import { isAdminAuthenticated } from '../../../../../lib/adminAuth';
+import { getProductById, updateProduct } from '../../../../lib/api';
+import { isAdminAuthenticated } from '../../../../lib/adminAuth';
 
 export default function EditProduct({ params }) {
   const router = useRouter();
