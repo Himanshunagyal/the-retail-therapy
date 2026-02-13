@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getAdminToken } from './adminAuth';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
@@ -10,11 +9,13 @@ const api = axios.create({
   },
 });
 
-// Add auth token to requests
+// Add auth token interceptor
 api.interceptors.request.use((config) => {
-  const token = getAdminToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('admin_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
   }
   return config;
 });
@@ -27,6 +28,21 @@ export const getProducts = async (params = {}) => {
 
 export const getProductById = async (id) => {
   const response = await api.get(`/products/${id}`);
+  return response.data;
+};
+
+export const createProduct = async (productData) => {
+  const response = await api.post('/products', productData);
+  return response.data;
+};
+
+export const updateProduct = async (id, productData) => {
+  const response = await api.put(`/products/${id}`, productData);
+  return response.data;
+};
+
+export const deleteProduct = async (id) => {
+  const response = await api.delete(`/products/${id}`);
   return response.data;
 };
 
@@ -54,6 +70,17 @@ export const createRazorpayOrder = async (paymentData) => {
 
 export const verifyRazorpayPayment = async (paymentData) => {
   const response = await api.post('/payment/verify', paymentData);
+  return response.data;
+};
+
+// Admin APIs
+export const adminLogin = async (credentials) => {
+  const response = await api.post('/admin/login', credentials);
+  return response.data;
+};
+
+export const getDashboardStats = async () => {
+  const response = await api.get('/admin/dashboard-stats');
   return response.data;
 };
 

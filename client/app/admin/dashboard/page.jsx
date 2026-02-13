@@ -160,7 +160,7 @@ export default function AdminDashboard() {
             </div>
           </Link>
 
-          <Link
+          {/* <Link
             href="/admin/orders"
             className="bg-white rounded-xl p-6 border border-stone-100 shadow-sm hover:shadow-md transition-shadow group"
           >
@@ -173,7 +173,7 @@ export default function AdminDashboard() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
               </svg>
             </div>
-          </Link>
+          </Link> */}
 
           <Link
             href="/admin/products/add"
